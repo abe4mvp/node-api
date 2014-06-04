@@ -8,6 +8,18 @@
     "ejs": "*"
   },
   "scripts": {
-     "start": "node server.js"
-   }
+    "start": "node server.js"
+  },
+  "main": "config.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abe4mvp/node-api.git"
+  },
+  "author": "Abe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abe4mvp/node-api/issues"
+  },
+  "homepage": "https://github.com/abe4mvp/node-api"
 }
