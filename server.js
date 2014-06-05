@@ -1,25 +1,38 @@
 var express = require('express');
 var app =  express();
 
-require('./config.js').init(app);
-require('./routes.js').init(app);
-
-
-
 var redis = require('redis');
 var client = redis.createClient();
 client.on('error', function (err) {
   console.log('Error ' + err);
 });
 
-var caminte = require('caminte');
-var Schema = caminte.Schema;
-var db = {
- driver     : "redis",
- host       : "localhost",
- port       : "6379"
-};
-var schema = new Schema(db.driver, db);
+var schema = require('./schema.js');
+
+var Director = schema.define('Director', {
+  full_name: {type: schema.String, index: true},
+  dob: String,
+  favorite_camera: String,
+  favorite_movies: Number
+});
+
+var abe = new Director({
+  full_name: "Abe",
+  dob: "1/19/90",
+  favorite_camera: "iphone",
+  favorite_movies: 7
+});
+
+abe.save();
+
+
+require('./config.js').init(app);
+require('./routes.js').init(app);
+
+
+
+
+
 
 var port =  Number(process.env.PORT || 3000);
 
