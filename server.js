@@ -21,15 +21,15 @@ var Director = schema.define('Director', {
   favorite_movies: Number
 });
 
-// var abe = new Director({
-//   full_name: "Abe",
-//   dob: "1/19/90",
-//   favorite_camera: "iphone",
-//   favorite_movies: 7
-// });
+var abe = new Director({
+  full_name: "Abe",
+  dob: "1/19/90",
+  favorite_camera: "iphone",
+  favorite_movies: 7
+});
 
-// abe.save();
-// 
+abe.save();
+
 
 
 require('./config.js').init(app);
