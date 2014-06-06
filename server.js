@@ -2,7 +2,12 @@ var express = require('express');
 var app =  express();
 
 var redis = require('redis');
-var client = redis.createClient();
+// var client = redis.createClient();
+// var url = require('url');
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+client.auth(redisURL.auth.split(":")[1]);
+
 client.on('error', function (err) {
   console.log('Error ' + err);
 });
@@ -16,14 +21,15 @@ var Director = schema.define('Director', {
   favorite_movies: Number
 });
 
-var abe = new Director({
-  full_name: "Abe",
-  dob: "1/19/90",
-  favorite_camera: "iphone",
-  favorite_movies: 7
-});
+// var abe = new Director({
+//   full_name: "Abe",
+//   dob: "1/19/90",
+//   favorite_camera: "iphone",
+//   favorite_movies: 7
+// });
 
-abe.save();
+// abe.save();
+// 
 
 
 require('./config.js').init(app);
