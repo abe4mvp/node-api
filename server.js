@@ -3,18 +3,27 @@ var app =  express();
 
 var redis = require('redis');
 // var client = redis.createClient();
-var url = require('url');
-var redisURL = url.parse(process.env.REDISCLOUD_URL);
-console.log('redis hostname -----', redisURL.hostname);
-console.log('redis port -----', redisURL.port);
-console.log('redis auth -----', redisURL.auth.split(":")[1]);
+// var url = require('url');
+// var redisURL = url.parse(process.env.REDISCLOUD_URL);
+// console.log('redis hostname -----', redisURL.hostname);
+// console.log('redis port -----', redisURL.port);
+// console.log('redis auth -----', redisURL.auth.split(":")[1]);
 
-var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
-client.auth(redisURL.auth.split(":")[1]);
+// var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+// client.auth(redisURL.auth.split(":")[1]);
 
-client.on('error', function (err) {
-  console.log('Err:: ' + err);
-});
+// client.on('error', function (err) {
+//   console.log('Err:: ' + err);
+// });
+// 
+if (process.env.REDISTOGO_URL) {
+  var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+  var redis = redis.createClient(rtg.port, rtg.hostname);
+  redis.auth(rtg.auth.split(":")[1]);
+  
+} else {
+  redis.createClient();
+}
 
 var schema = require('./schema.js');
 
