@@ -21,7 +21,8 @@ if (process.env.REDISTOGO_URL) {
   console.log("reddddddd", rtg.port, rtg.hostname);
   var client = redis.createClient(rtg.port, rtg.hostname);
   client.auth(rtg.auth.split(":")[1]);
-  console.log("production");
+  console.log(config.redis);
+  console.log(config);
 } else {
   redis.createClient();
   console.log("local");
