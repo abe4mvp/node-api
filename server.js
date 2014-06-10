@@ -20,8 +20,10 @@ if (process.env.REDISTOGO_URL) {
   var rtg   = require("url").parse(process.env.REDISTOGO_URL);
   var client = redis.createClient(rtg.port, rtg.hostname);
   client.auth(rtg.auth.split(":")[1]);
+  console.log("production");
 } else {
   redis.createClient();
+  console.log("local");
 }
 
 var schema = require('./schema.js');
