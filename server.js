@@ -17,10 +17,10 @@ var redis = require('redis');
 // });
 // 
 if (process.env.REDISTOGO_URL) {
-  
-  console.log("reddddddd", rtg.port, rtg.hostname, rtg.auth.split(':')[1]);
-  var client = redis.createClient(rtg.port, rtg.hostname);
-  client.auth(rtg.auth.split(":")[1]);
+  var db = require('./enviornments/production.js');
+  console.log(db);
+  var client = redis.createClient(db.port, db.hostname);
+  client.auth(db.password);
 } else {
   redis.createClient();
   console.log("local");
