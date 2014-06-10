@@ -18,11 +18,9 @@ var redis = require('redis');
 // 
 if (process.env.REDISTOGO_URL) {
   var rtg   = require("url").parse(process.env.REDISTOGO_URL);
-  console.log("reddddddd", rtg.port, rtg.hostname);
+  console.log("reddddddd", rtg.port, rtg.hostname, rtg.auth.split(':')[1]);
   var client = redis.createClient(rtg.port, rtg.hostname);
   client.auth(rtg.auth.split(":")[1]);
-  console.log(process);
-  console.log(process.env);
 } else {
   redis.createClient();
   console.log("local");
