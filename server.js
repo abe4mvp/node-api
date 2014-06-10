@@ -5,11 +5,13 @@ var redis = require('redis');
 // var client = redis.createClient();
 var url = require('url');
 var redisURL = url.parse(process.env.REDISCLOUD_URL);
+console.log('redis url -----', redisURL);
+
 var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 client.auth(redisURL.auth.split(":")[1]);
 
 client.on('error', function (err) {
-  console.log('Error ' + err);
+  console.log('Err:: ' + err);
 });
 
 var schema = require('./schema.js');
