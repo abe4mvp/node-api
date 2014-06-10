@@ -19,7 +19,7 @@ var redis = require('redis');
 if (process.env.REDISTOGO_URL) {
   var db = require('./enviornments/production.js');
   console.log(db);
-  var client = redis.createClient(db.port, db.hostname);
+  var client = redis.createClient(db.port, db.host);
   client.auth(db.password);
 } else {
   redis.createClient();
