@@ -12,8 +12,8 @@ controllers.directors = require('./app/controllers/directors.js');
 exports.init = function(app) {
   app.get('/', controllers.static.forms);
 
-
   app.post('/directors', controllers.directors.create);
   app.put('/directors', controllers.directors.update);
-  app.get('/directors', controllers.directors.index)
+  app.get('/directors', controllers.directors.index);
+  app.get('/directors/:id', controllers.directors.show);
 };

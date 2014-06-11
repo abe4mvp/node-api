@@ -42,8 +42,6 @@ module.exports = {
       Director
         .findById(id, function(err, director) {
           director.updateAttribute(attr, newValue, function(error, model) {
-            console.log(model);
-            console.log(director);
             res.send(director);
           });
       });
@@ -54,5 +52,14 @@ module.exports = {
     Director.all().run({},function(err, directors) {
       res.send(directors);
     });
+  },
+
+  show: function(req, res) {
+    var livestreamId = Number(req.params.id);
+
+    Director.findOne({ where: { livestream_id: livestreamId}}, function(error, director) {
+      res.send(director);
+    });
   }
+  
 };
