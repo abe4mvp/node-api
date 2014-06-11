@@ -7,7 +7,7 @@ var apiEndpoint = 'https://api.new.livestream.com/accounts/';
 
 module.exports = {
 
-  index: function(req, res) {
+  create: function(req, res) {
     var livestreamId = Number(req.body.id);
 
     if (true) {
@@ -28,5 +28,31 @@ module.exports = {
         });
     }
 
+  },
+
+  update: function(req, res) {
+    var id = Number(req.body.id);
+    var attr = req.body.attribute;
+    var newValue = req.body.value;
+    console.log(attr + ': ' + newValue);
+
+    // validations
+    
+    if (true) {
+      Director
+        .findById(id, function(err, director) {
+          director.updateAttribute(attr, newValue, function(error, model) {
+            console.log(model);
+            console.log(director);
+            res.send(director);
+          });
+      });
+    } 
+  },
+
+  index: function(req, res) {
+    Director.all().run({},function(err, directors) {
+      res.send(directors);
+    });
   }
 };

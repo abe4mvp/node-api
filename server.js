@@ -32,16 +32,16 @@ var Director = schema.define('Director', {
   livestream_id: Number,
   full_name: {type: schema.String, index: true},
   dob: String,
-  favorite_camera: {type: schema.String, default: 'n/a' },
+  favorite_camera: {type: schema.String, default: null },
   favorite_movies: Number
 });
 
-var abe = new Director({
-  full_name: "Abe",
-  dob: "1/19/90",
-});
+// var abe = new Director({
+//   full_name: "Abe",
+//   dob: "1/19/90",
+// });
 
-abe.save();
+// abe.save();
 
 
 

@@ -13,5 +13,7 @@ exports.init = function(app) {
   app.get('/', controllers.static.forms);
 
 
-  app.post('/directors', controllers.directors.index);
+  app.post('/directors', controllers.directors.create);
+  app.put('/directors', controllers.directors.update);
+  app.get('/directors', controllers.directors.index)
 };
