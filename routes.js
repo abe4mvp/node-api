@@ -7,7 +7,11 @@ var controllers = {};
 //   controllers[controller.split('.')[0]] = require(controllerDir + controller);
 // });
 controllers.static = require('./app/controllers/static.js');
+controllers.directors = require('./app/controllers/directors.js');
 
 exports.init = function(app) {
-  app.get('/', controllers.static.modelTest);
+  app.get('/', controllers.static.forms);
+
+
+  app.post('/directors', controllers.directors.index);
 };

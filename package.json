@@ -8,7 +8,8 @@
     "redis": "~0.10.3",
     "caminte": "0.0.18",
     "url": "~0.10.1",
-    "hiredis": "~0.1.17"
+    "hiredis": "~0.1.17",
+    "superagent": "~0.18.0"
   },
   "scripts": {
     "start": "node server.js"

@@ -1,7 +1,4 @@
 var schema = require('../../schema.js');
-
-
-
 var Director = schema.models.Director;
 var director;
 
@@ -16,5 +13,9 @@ module.exports = {
       director = model;
       res.send(director);
     });
+  },
+
+  forms: function(req, res) {
+    res.render('index.html');
   }
 };

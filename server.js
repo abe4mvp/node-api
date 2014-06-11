@@ -29,17 +29,16 @@ if (process.env.REDISTOGO_URL) {
 var schema = require('./schema.js');
 
 var Director = schema.define('Director', {
+  livestream_id: Number,
   full_name: {type: schema.String, index: true},
   dob: String,
-  favorite_camera: String,
+  favorite_camera: {type: schema.String, default: 'n/a' },
   favorite_movies: Number
 });
 
 var abe = new Director({
   full_name: "Abe",
   dob: "1/19/90",
-  favorite_camera: "iphone",
-  favorite_movies: 7
 });
 
 abe.save();
