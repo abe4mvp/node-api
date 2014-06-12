@@ -12,10 +12,13 @@
     "superagent": "~0.18.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node spec/spec.js"
   },
   "main": "config.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "should": "~4.0.4"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/abe4mvp/node-api.git"

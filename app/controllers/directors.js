@@ -9,7 +9,7 @@ var apiEndpoint = 'https://api.new.livestream.com/accounts/';
 module.exports = {
 
   create: function(req, res) {
-    var livestreamId = Number(req.body.id);
+    var livestreamId = Number(req.body.livestream_id);
 
     request
       .get(apiEndpoint + livestreamId)
@@ -44,8 +44,10 @@ module.exports = {
       res.send(helpers.immutable);
     }
 
+    console.log('headers: ', req.headers);
+
     var newValue = req.body.value;
-    var livestreamId = Number(req.body.id);
+    var livestreamId = Number(req.body.livestream_id);
     
     if (true) {
       Director
@@ -89,7 +91,7 @@ module.exports = {
   },
 
   del: function(req, res) {
-    var livestreamId = Number(req.body.id);
+    var livestreamId = Number(req.body.livestream_id);
 
     Director.remove({where: { livestream_id: livestreamId }}, function(err){
       console.log(err);
