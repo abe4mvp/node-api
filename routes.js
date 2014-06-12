@@ -16,4 +16,5 @@ exports.init = function(app) {
   app.put('/directors', controllers.directors.update);
   app.get('/directors', controllers.directors.index);
   app.get('/directors/:id', controllers.directors.show);
+  app.del('/directors', controllers.directors.del);
 };
