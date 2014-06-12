@@ -17,7 +17,8 @@
   },
   "main": "config.js",
   "devDependencies": {
-    "should": "~4.0.4"
+    "should": "~4.0.4",
+    "mocha": "~1.20.1"
   },
   "repository": {
     "type": "git",
