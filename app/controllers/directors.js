@@ -4,6 +4,7 @@ var request = require('superagent');
 var helpers = require('../helpers.js');
 
 
+
 var apiEndpoint = 'https://api.new.livestream.com/accounts/';
 
 module.exports = {
@@ -44,36 +45,29 @@ module.exports = {
       res.send(helpers.immutable);
     }
 
-    console.log('headers: ', req.headers);
-
     var newValue = req.body.value;
     var livestreamId = Number(req.body.livestream_id);
-    
-    if (true) {
-      Director
-        .findOne({ where: { livestream_id: livestreamId}}, function(error, director) {
+ 
+    Director
+      .findOne({ where: { livestream_id: livestreamId}}, function(error, director) {
 
-          var auth = req.headers.authorization;
-          console.log(auth);
-
-          if (director){
-            if (auth === director.full_name) {
-              director.updateAttribute(attr, newValue, function(err, model) {
-                if (err) {
-                  res.send({error: director.errors});
-                } else {
-                  res.send(director);
-                }
-              });
-            } else {
-              res.send(helpers.unauthorized);
-            }
+        if (director){
+          if (helpers.is_authorized(req, director)) {
+            director.updateAttribute(attr, newValue, function(err, model) {
+              if (err) {
+                res.send({error: director.errors});
+              } else {
+                res.send(director);
+              }
+            });
           } else {
-            res.send(helpers.notFound);
+            res.send(helpers.unauthorized);
           }
-          
-      });
-    } 
+        } else {
+          res.send(helpers.notFound);
+        }
+        
+    });
   },
 
   index: function(req, res) {
