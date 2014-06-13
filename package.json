@@ -10,7 +10,8 @@
     "url": "~0.10.1",
     "hiredis": "~0.1.17",
     "superagent": "~0.18.0",
-    "sanitize-html": "~1.1.7"
+    "sanitize-html": "~1.1.7",
+    "MD5": "~1.2.1"
   },
   "scripts": {
     "start": "node server.js",
