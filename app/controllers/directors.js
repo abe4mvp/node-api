@@ -4,6 +4,7 @@ var request = require('superagent');
 var helpers = require('../helpers.js');
 
 
+
 var apiEndpoint = 'https://api.new.livestream.com/accounts/';
 
 module.exports = {
@@ -26,9 +27,9 @@ module.exports = {
 
         newDirector.save(function(err) {
           if (err) {
-            res.send({error: newDirector.errors});
+            res.send(400, {error: newDirector.errors});
           } else {
-            res.send(newDirector);
+            res.send(201, newDirector);
           }
         });
       });
@@ -41,58 +42,49 @@ module.exports = {
     
 
     if (!helpers.is_mutable(attr)) {
-      res.send(helpers.immutable);
+      res.send(403, helpers.immutable);
     }
-
-    console.log('headers: ', req.headers);
 
     var newValue = req.body.value;
     var livestreamId = Number(req.body.livestream_id);
-    
-    if (true) {
-      Director
-        .findOne({ where: { livestream_id: livestreamId}}, function(error, director) {
+ 
+    Director
+      .findOne({ where: { livestream_id: livestreamId}}, function(error, director) {
 
-          var auth = req.headers.authorization;
-          console.log(auth);
-
-          if (director){
-            if (auth === director.full_name) {
-              director.updateAttribute(attr, newValue, function(err, model) {
-                if (err) {
-                  res.send({error: director.errors});
-                } else {
-                  res.send(director);
-                }
-              });
-            } else {
-              res.send(helpers.unauthorized);
-            }
+        if (director){
+          if (helpers.is_authorized(req, director)) {
+            director.updateAttribute(attr, newValue, function(err, model) {
+              if (err) {
+                res.send(400, {error: director.errors});
+              } else {
+                res.send(200, director);
+              }
+            });
           } else {
-            res.send(helpers.notFound);
+            res.send(401, helpers.unauthorized);
           }
-          
-      });
-    } 
+        } else {
+          res.send(404, helpers.notFound);
+        }
+        
+    });
   },
 
   index: function(req, res) {
     Director.all().run({},function(err, directors) {
-      res.send(directors);
+      res.send(200, directors);
     });
   },
 
   show: function(req, res) {
     var livestreamId = Number(req.params.id);
-    console.log(livestreamId);
 
     Director
     .findOne({where: { livestream_id: livestreamId}}, function(err, director) {
-      console.log(director);
       if (director){
-        res.send(director);
+        res.send(200, director);
       } else {
-        res.send(helpers.notFound);
+        res.send(404, helpers.notFound);
       }
       
     });
@@ -101,9 +93,24 @@ module.exports = {
   del: function(req, res) {
     var livestreamId = Number(req.body.livestream_id);
 
-    Director.remove({where: { livestream_id: livestreamId }}, function(err){
-      console.log(err);
-      res.send(err);
+    Director
+    .findOne({where: { livestream_id: livestreamId}}, function(err, director) {
+      if (director){
+          if (helpers.is_authorized(req, director)) {
+            director.destroy(function(err) {
+              if (err) {
+                res.send(400, {error: director.errors});
+              } else {
+                res.send(204, {deleted: livestreamId});
+              }
+            });
+          } else {
+            res.send(401, helpers.unauthorized);
+          }
+        } else {
+          res.send(404, helpers.notFound);
+        }
+      
     });
   }
   
