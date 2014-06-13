@@ -2,6 +2,7 @@ var schema = require('../../schema.js');
 var Director = schema.models.Director;
 var request = require('superagent');
 var helpers = require('../helpers.js');
+var sanitize = require('sanitize-html');
 
 
 
@@ -10,7 +11,7 @@ var apiEndpoint = 'https://api.new.livestream.com/accounts/';
 module.exports = {
 
   create: function(req, res) {
-    var livestreamId = Number(req.body.livestream_id);
+    var livestreamId = Number(sanitize(req.body.livestream_id));
 
     request
       .get(apiEndpoint + livestreamId)
@@ -38,15 +39,15 @@ module.exports = {
 
   update: function(req, res) {
     
-    var attr = req.body.attribute;
+    var attr = sanitize(req.body.attribute);
     
 
     if (!helpers.is_mutable(attr)) {
       res.send(403, helpers.immutable);
     }
 
-    var newValue = req.body.value;
-    var livestreamId = Number(req.body.livestream_id);
+    var newValue = sanitize(req.body.value);
+    var livestreamId = Number(sanitize(req.body.livestream_id));
  
     Director
       .findOne({ where: { livestream_id: livestreamId}}, function(error, director) {
@@ -77,7 +78,7 @@ module.exports = {
   },
 
   show: function(req, res) {
-    var livestreamId = Number(req.params.id);
+    var livestreamId = Number(sanitize(req.params.id));
 
     Director
     .findOne({where: { livestream_id: livestreamId}}, function(err, director) {
@@ -91,7 +92,7 @@ module.exports = {
   },
 
   del: function(req, res) {
-    var livestreamId = Number(req.body.livestream_id);
+    var livestreamId = Number(sanitize(req.body.livestream_id));
 
     Director
     .findOne({where: { livestream_id: livestreamId}}, function(err, director) {
