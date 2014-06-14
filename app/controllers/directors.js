@@ -23,6 +23,7 @@ module.exports = {
 
         if (response.body.name === 'NotFoundError') {
           res.send(404, response.body);
+          return;
         }
 
         var fullName = response.body.full_name;
@@ -54,7 +55,6 @@ module.exports = {
 
     if (!helpers.is_mutable(attr)) {
       res.send(403, helpers.immutable);
-
       return;
     }
 

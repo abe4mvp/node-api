@@ -54,7 +54,7 @@ module.exports = {
     request
       .del(endpoint)
       .send({livestream_id: id})
-      .set(header[0], header[1])
+      .set(header[0], md5(header[1]))
       .end(callback);
   }
 

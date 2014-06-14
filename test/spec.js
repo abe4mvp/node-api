@@ -104,7 +104,6 @@ describe('Api', function(){
     it('a record with valid header', function(done){
       spec.del(id, stub.validHeader, function(error, response){
         response.statusCode.should.eql(204);
-        response.body.deleted.should.eql(id);
         done();
       });
     });
