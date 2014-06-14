@@ -3,15 +3,24 @@ var fs = require('fs');
 var controllerFiles = fs.readdirSync(controllerDir);
 var controllers = {};
 
-// controllerFiles.forEach(function (controller) {
-//   controllers[controller.split('.')[0]] = require(controllerDir + controller);
-// });
-controllers.static = require('./app/controllers/static.js');
-controllers.directors = require('./app/controllers/directors.js');
+
+/**
+ * import and populate all controllers and actions
+ * @param  {File} file the files in the controller directory
+ */
+controllerFiles.forEach(function (file) {
+  var controller = controller.split('.');
+  if (controller[1] === 'js'){
+    controllers[controller[0]] = require(controllerDir + controller);    
+  }
+});
 
 exports.init = function(app) {
+  // static routes
   app.get('/', controllers.static.forms);
 
+
+  // director routes
   app.post('/directors', controllers.directors.create);
   app.put('/directors', controllers.directors.update);
   app.get('/directors', controllers.directors.index);

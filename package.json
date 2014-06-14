@@ -14,8 +14,7 @@
     "MD5": "~1.2.1"
   },
   "scripts": {
-    "start": "node server.js",
-    "test": "node spec/spec.js"
+    "start": "node server.js"
   },
   "main": "config.js",
   "devDependencies": {

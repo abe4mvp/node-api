@@ -10,6 +10,9 @@ var apiEndpoint = 'https://api.new.livestream.com/accounts/';
 
 module.exports = {
 
+  /**
+   * create a new director
+   */
   create: function(req, res) {
     var livestreamId = Number(sanitize(req.body.livestream_id));
 
@@ -36,7 +39,9 @@ module.exports = {
       });
 
   },
-
+  /**
+   * update an attribute for a director
+   */
   update: function(req, res) {
     
     var attr = sanitize(req.body.attribute);
@@ -71,12 +76,18 @@ module.exports = {
     });
   },
 
+  /**
+   * show info for all directors
+   */
   index: function(req, res) {
     Director.all().run({},function(err, directors) {
       res.send(200, directors);
     });
   },
 
+  /**
+   * get the info for a particular director
+   */
   show: function(req, res) {
     var livestreamId = Number(sanitize(req.params.id));
 
@@ -91,6 +102,9 @@ module.exports = {
     });
   },
 
+  /**
+   * delete a director
+   */
   del: function(req, res) {
     var livestreamId = Number(sanitize(req.body.livestream_id));
 

@@ -1,21 +1,9 @@
 var express = require('express');
 var app =  express();
-
 var redis = require('redis');
-// var client = redis.createClient();
-// var url = require('url');
-// var redisURL = url.parse(process.env.REDISCLOUD_URL);
-// console.log('redis hostname -----', redisURL.hostname);
-// console.log('redis port -----', redisURL.port);
-// console.log('redis auth -----', redisURL.auth.split(":")[1]);
 
-// var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
-// client.auth(redisURL.auth.split(":")[1]);
 
-// client.on('error', function (err) {
-//   console.log('Err:: ' + err);
-// });
-// 
+// connect to local or remote redis instance
 if (process.env.REDISTOGO_URL) {
   var db = require('./enviornments/production.js');
   console.log(db);
@@ -23,20 +11,13 @@ if (process.env.REDISTOGO_URL) {
   client.auth(db.password);
 } else {
   redis.createClient();
-  console.log("local");
+  console.log('local');
 }
 
 var schema = require('./schema.js');
 
-
-
-
 require('./config.js').init(app);
 require('./routes.js').init(app);
-
-
-
-
 
 
 var port =  Number(process.env.PORT || 3000);
