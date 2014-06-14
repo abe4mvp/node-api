@@ -67,5 +67,19 @@ describe('Api', function(){
     });
   });
 
+  describe('index', function(){
+    it('returns all available directors', function(done){
+      spec.create(id + 1, function(error, response) {
+        spec.index(function(error,response){
+          response.body.length.should.eql(2);
+          response.statusCode.should.eql(200);
+          done();
+        });
+      });
+    });
+  });
+
+  
+
 });
   
