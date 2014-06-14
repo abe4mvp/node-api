@@ -20,6 +20,11 @@ module.exports = {
       .get(apiEndpoint + livestreamId)
       .end(function(error, response) {
 
+
+        if (response.body.name === 'NotFoundError') {
+          res.send(response.body);
+        }
+
         var fullName = response.body.full_name;
         var dob = response.body.dob;
 
@@ -49,7 +54,11 @@ module.exports = {
 
     if (!helpers.is_mutable(attr)) {
       res.send(403, helpers.immutable);
+      console.log(attr);
+      return;
     }
+
+    console.log('here');
 
     var newValue = sanitize(req.body.value);
     var livestreamId = Number(sanitize(req.body.livestream_id));

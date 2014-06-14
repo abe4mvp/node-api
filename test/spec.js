@@ -1,46 +1,70 @@
 var request = require('superagent');
 var should = require('should');
-var director = require('./helpers');
+var spec = require('./helpers');
 var mocha = require('mocha');
+var stub = require('./stubs');
 
-var validData = {
-  livestream_id: 648883,
-  value: 'nikkon 1234',
-  attribute: 'favorite_camera'
-};
 
-var validHeader = ['Authorization', 'Olphinz Web'];
-var invalidHeader = ['Authorization', 'wrong name'];
 
-var updateResponse = { 
-  livestream_id: 648883,
-  full_name: 'Olphinz Web',
-  dob: '1982-01-01T00:00:00.000Z',
-  favorite_camera: 'nikkon 1234',
-  favorite_movies: '',
-  id: 1 
-};
+var id = 648883;
 
-var test = {a: 1, b: 2};
-test.should.eql({a:1, b:2});
+describe('Api', function(){
 
-describe('update', function(){
+  describe('creates', function(){
 
-  it('Updates with valid request', function(done){
-    director.update(validData, validHeader, function (error, response) {
-      response.body.should.eql(updateResponse);
-      done();
+    it('a new director', function(done){
+      spec.create(id, function(error, response){
+        response.body.should.eql(stub.createdResponse);
+        response.statusCode.should.eql(201);
+        done();
+      });  
+    });
+
+    it('does not allow 2 account with same id', function(done){
+      spec.create(id, function(error, response){
+        response.statusCode.should.eql(400);
+        done();
+      });  
     });
   });
 
-  it('Will not allow update without valid Authorization', function(done){
-    director.update(validData, invalidHeader, function(error, response){
-      response.body.error.should.equal('Unathorized access');
-      done();
+  describe('updates', function(){
+
+    it('with valid request', function(done){
+      spec.update(stub.validUpdate, stub.validHeader, function (error, response) {
+        response.body.should.eql(stub.updatedResponse);
+        response.statusCode.should.eql(200);
+        done();
+      });
+    });
+
+    it('will not allow invalid attributes to be chaged', function(done){
+      spec.update(stub.invalidUpdate, stub.validHeader, function (error, response) {
+        // response.body.should.eql(stub.updatedResponse);
+        response.statusCode.should.eql(403);
+        done();
+      });
+    });
+
+    it('will not allow update without valid Authorization', function(done){
+      spec.update(stub.validUpdate, stub.invalidHeader, function(error, response){
+        response.body.error.should.equal('Unathorized access');
+        response.statusCode.should.eql(401);
+        done();
+      });
     });
   });
 
 
+  describe('shows', function(){
+    it('a director with previously persisted changes', function(done){
+      spec.show(id, function(error, response){
+        response.body.should.eql(stub.updatedResponse);
+        response.statusCode.should.eql(200);
+        done();
+      });
+    });
+  });
 
 });
-
+  

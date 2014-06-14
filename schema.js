@@ -11,7 +11,7 @@ var Director = schema.define('Director', {
   full_name: {type: schema.String, index: true},
   dob: String,
   favorite_camera: {type: schema.String, default: null },
-  favorite_movies: Number
+  favorite_movies: {type: schema.String, default: null }
 });
 
 Director.validatesUniquenessOf('livestream_id', {message: 'account already created for this director'});
