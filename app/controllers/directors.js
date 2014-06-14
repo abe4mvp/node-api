@@ -22,7 +22,7 @@ module.exports = {
 
 
         if (response.body.name === 'NotFoundError') {
-          res.send(response.body);
+          res.send(400, response.body);
         }
 
         var fullName = response.body.full_name;

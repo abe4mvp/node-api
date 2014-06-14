@@ -2,6 +2,7 @@ var request = require('superagent');
 var md5 = require('MD5');
 
 var endpoint = 'http://localhost:3000/directors';
+// var endpoint = 'http://livestream-api.herokuapp.com/directors';
 
 module.exports = {
 
@@ -46,6 +47,14 @@ module.exports = {
       .put(endpoint)
       .send(data)
       .set(header[0], md5(header[1]))
+      .end(callback);
+  },
+
+  del: function(id, header, callback){
+    request
+      .del(endpoint)
+      .send({livestream_id: id})
+      .set(header[0], header[1])
       .end(callback);
   }
 
