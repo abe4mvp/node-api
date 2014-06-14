@@ -1,8 +1,3 @@
-TODO
- 
-* data structure for movies
-* authentication for updating
-* write tests
-* doc blocks
-* sanitize input
-*
+To run tests (assuming a blank local Db)
+ $ npm update
+ $ mocha
