@@ -8,7 +8,7 @@ Node Api
 * delete /directors {livestream_id: [Int]} (deletes a director)
 * get /directors/:id (displays a single director)
 
-<p>Delete and put requests require authorizaion header equal to the md5 has of the full name of the director. Only favorite_camera and favorite_movies can be changed</p>
+<p>Delete and put requests require authorizaion header equal to the md5 hash of the full name of the director. Only favorite_camera and favorite_movies can be changed</p>
 
 
 
