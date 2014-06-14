@@ -54,11 +54,11 @@ module.exports = {
 
     if (!helpers.is_mutable(attr)) {
       res.send(403, helpers.immutable);
-      console.log(attr);
+
       return;
     }
 
-    console.log('here');
+
 
     var newValue = sanitize(req.body.value);
     var livestreamId = Number(sanitize(req.body.livestream_id));

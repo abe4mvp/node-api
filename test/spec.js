@@ -23,6 +23,7 @@ describe('Api', function(){
     it('does not allow 2 account with same id', function(done){
       spec.create(id, function(error, response){
         response.statusCode.should.eql(400);
+        response.body.error.livestream_id.should.eql(['account already created for this director']);
         done();
       });  
     });
