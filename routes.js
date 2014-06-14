@@ -9,9 +9,9 @@ var controllers = {};
  * @param  {File} file the files in the controller directory
  */
 controllerFiles.forEach(function (file) {
-  var controller = controller.split('.');
+  var controller = file.split('.');
   if (controller[1] === 'js'){
-    controllers[controller[0]] = require(controllerDir + controller);    
+    controllers[controller[0]] = require(controllerDir + file);    
   }
 });
 

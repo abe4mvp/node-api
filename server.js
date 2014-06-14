@@ -14,7 +14,7 @@ if (process.env.REDISTOGO_URL) {
   console.log('local');
 }
 
-var schema = require('./schema.js');
+// var schema = require('./schema.js');
 
 require('./config.js').init(app);
 require('./routes.js').init(app);
