@@ -3,7 +3,7 @@
   "description": "Node Api",
   "version": "0.0.1",
   "dependencies": {
-    "node": "0.10.25",
+    "node": ">= 0.8.0",
     "express": "3.4.2",
     "ejs": "*",
     "redis": "~0.10.3",
